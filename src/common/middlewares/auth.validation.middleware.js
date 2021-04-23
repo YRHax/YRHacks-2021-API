@@ -6,7 +6,7 @@ module.exports.verifyRefreshBodyField = (req, res, next) => {
     if(req.body && req.body.refresh_token) {
         return next();
     } else {
-        return res.status(400).send({ error: 'need to pass refresh_token field' });
+        return res.status(400).send({ error: 'Need to pass refresh_token field' });
     }
 };
 
