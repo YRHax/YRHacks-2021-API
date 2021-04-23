@@ -5,8 +5,8 @@ module.exports.hasAuthValidFields = (req, res, next) => {
     const errors = [];
 
     if(req.body) {
-        if(!req.body.email) {
-            errors.push('Missing email field');
+        if(!req.body.username) {
+            errors.push('Missing username field');
         }
 
         if(!req.body.password) {
@@ -19,12 +19,12 @@ module.exports.hasAuthValidFields = (req, res, next) => {
             return next();
         }
     } else {
-        return res.status(400).send({ errors: 'Missing email and password fields' });
+        return res.status(400).send({ errors: 'Missing username and password fields' });
     }
 };
 
 module.exports.isPasswordAndUserMatch = (req, res, next) => {
-    UserModel.findByEmail(req.body.email).then((user) => {
+    UserModel.findByUsername(req.body.username).then((user) => {
         if(!user[0]) {
             res.status(401).send({
                 // send nothing
@@ -37,7 +37,6 @@ module.exports.isPasswordAndUserMatch = (req, res, next) => {
             if(hash === passwordFields[1]) {
                 req.body = {
                     userId: user[0]._id,
-                    email: user[0].email,
                     permissionLevel: user[0].permissionLevel,
                     provider: 'email',
                     name: user[0].username,
@@ -45,7 +44,7 @@ module.exports.isPasswordAndUserMatch = (req, res, next) => {
 
                 return next();
             } else {
-                return res.status(400).send({ errors: ['Invalid email or password'] });
+                return res.status(400).send({ errors: ['Invalid username or password'] });
             }
         }
     });

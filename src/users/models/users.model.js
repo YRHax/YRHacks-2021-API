@@ -3,7 +3,6 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
     username: String,
-    email: String,
     password: String,
     permissionLevel: Number,
 });
@@ -23,8 +22,8 @@ userSchema.findById = function(cb) {
 
 const User = mongoose.model('Users', userSchema);
 
-module.exports.findByEmail = (email) => {
-    return User.find({ email: email });
+module.exports.findByUsername = (username) => {
+    return User.find({ username: username });
 };
 
 module.exports.findById = async (id) => {
