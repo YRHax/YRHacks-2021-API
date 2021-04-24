@@ -5,6 +5,10 @@ const packSchema = new Schema({
     name: String,
     owner: String,
     ID: String,
+    views: {
+        type: Number,
+        default: 0,
+    },
     emojis: [],
     visibility: {
         type: Boolean,
