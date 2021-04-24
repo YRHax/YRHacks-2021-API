@@ -2,16 +2,46 @@ const mongoose = require('../../common/services/mongoose.service').mongoose;
 const Schema = mongoose.Schema;
 
 const packSchema = new Schema({
-    name: String,
-    owner: String,
+    name: {
+        type: String,
+        required: true,
+    },
+    owner: {
+        type: String,
+        required: true,
+    },
     views: {
         type: Number,
         default: 0,
+        required: true,
     },
-    emojis: [],
+    emojis: [{
+        emojiId: {
+            type: String,
+            required: true,
+        },
+        emojiName: {
+            type: String,
+            required: true,
+        },
+        pack: {
+            type: String,
+            required: true,
+        },
+        owner: {
+            type: String,
+            required: true,
+        },
+        copyCount: {
+            type: Number,
+            default: 0,
+            required: true,
+        },
+    }],
     visibility: {
         type: Boolean,
         default: false,
+        required: true,
     },
 });
 
