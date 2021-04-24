@@ -196,6 +196,7 @@ There will be different types of data that need to be exposed by the api. Additi
   ```json
   {
       "id": "unique pack specified by the api",
+      "name": "name of the pack",
       "visibility": "true/false if the pack is visible or not",
       "emojis": [
           {
@@ -231,21 +232,12 @@ There will be different types of data that need to be exposed by the api. Additi
 - Response:
   A response code that is not 2xx represents the JWT is invalid, or if the pack does not exist, or if the pack does not belong to the user.
 
-### Delete Pack (`DELETE` - `/pack/delete`)
+### Delete Pack (`DELETE` - `/pack/delete/{packid}`)
 
 - Request Header:
   
   ```header
   Authorization: JWT returned from /login
-  ```
-
-- Payload:
-  Send a JSON payload to the endpoint with the following:
-
-  ```json
-  {
-      "id": "the id of the pack"
-  }
   ```
 
 - Response:
