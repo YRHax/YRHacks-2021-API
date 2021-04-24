@@ -1,10 +1,10 @@
 const packModel = require('../../users/models/packs.model');
 
 module.exports.create = (req, res) => {
-    req.body.name = req.params.name;
-    req.body.owner = req.params.userId;
+    if(!req.body.name || !req.body.owner) {
+        return res.status(404).send({ errors: 'Missing name and/or owner fields' });
+    }
 
-    console.log(req.body);
     packModel.createPack(req.body).then((result) => {
         res.status(201).send({ id: result._id });
     });
