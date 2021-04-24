@@ -48,7 +48,6 @@ There will be different types of data that need to be exposed by the api. Additi
 ### Account Object (Minimum Storage Requirement)
 
 - Account Username
-- Account Email
 - Account Id
 - Account Packs (List of pack ids)
 
@@ -78,7 +77,6 @@ There will be different types of data that need to be exposed by the api. Additi
   ```json
   {
       "username": "username",
-      "email": "email@email.com",
       "password": "password"
   }
   ```
@@ -100,14 +98,14 @@ There will be different types of data that need to be exposed by the api. Additi
 
   ```json
   {
-      "email": "email@email.com",
+      "username": "username",
       "password": "password"
   }
   ```
 
 - Response:
 
-  - A response code that is not 2xx represents a failed password or non-existent email.
+  - A response code that is not 2xx represents a failed password or non-existent username.
   - If valid, the api will respond with the following JSON object.
 
   The token will expire in 100 hours
@@ -164,13 +162,15 @@ There will be different types of data that need to be exposed by the api. Additi
 
   ```json
   {
-      "name": "Display name of the pack"
+      "name": "Display name of the pack",
+      "userid": "id of the user"
   }
   ```
 
 - Response:
   - The api will respond with a JSON object with the pack's id.
   - A response code that is not 2xx represents the JWT is invalid.
+  - The server will also respond with a code that is not 2xx if the JWT is not of the user
   - The server will also respond with a code that is not 2xx if the created pack will exceed `MAX_PACK_COUNT`
 
   ```json
@@ -196,6 +196,7 @@ There will be different types of data that need to be exposed by the api. Additi
   ```json
   {
       "id": "unique pack specified by the api",
+      "name": "name of the pack",
       "visibility": "true/false if the pack is visible or not",
       "emojis": [
           {
@@ -231,21 +232,12 @@ There will be different types of data that need to be exposed by the api. Additi
 - Response:
   A response code that is not 2xx represents the JWT is invalid, or if the pack does not exist, or if the pack does not belong to the user.
 
-### Delete Pack (`DELETE` - `/pack/delete`)
+### Delete Pack (`DELETE` - `/pack/delete/{packid}`)
 
 - Request Header:
   
   ```header
   Authorization: JWT returned from /login
-  ```
-
-- Payload:
-  Send a JSON payload to the endpoint with the following:
-
-  ```json
-  {
-      "id": "the id of the pack"
-  }
   ```
 
 - Response:
@@ -343,21 +335,12 @@ There will be different types of data that need to be exposed by the api. Additi
   - A response code that is not 2xx represents the JWT is invalid, or if the emoji does not exist, or if the emoji does not belong to the user.
   - If a new pack is specified, the pack MUST be owned by the user
 
-### Delete Emoji (`DELETE` - `/emoji/delete`)
+### Delete Emoji (`DELETE` - `/emoji/delete/{emojiId}`)
 
 - Request Header:
   
   ```header
   Authorization: JWT returned from /login
-  ```
-
-- Payload:
-  Send a JSON payload to the endpoint with the following:
-
-  ```json
-  {
-      "id": "the id of the emoji"
-  }
   ```
 
 - Response:
@@ -415,7 +398,8 @@ There will be different types of data that need to be exposed by the api. Additi
       "id": "unique emoji specified by the api",
       "name": "display name of the emoji",
       "count": "number of times the emoji was copied",
-      "mimeType": "The type of the image, either image/jpeg or image/png"
+      "packid": "the id of the pack",
+      "ownerid": "the id of the owner"
   }
   ```
 
