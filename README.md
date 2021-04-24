@@ -1,4 +1,4 @@
-# YRHacks 2021 - Practice Repo
+# YRHacks 2021
 **Team: Adam, Michael, Tim**
 
 ## Table of Contents
