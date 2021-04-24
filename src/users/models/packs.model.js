@@ -97,6 +97,6 @@ module.exports.cloneById = async (packID) => {
     new_doc.isNew = true;
     await new_doc.save().then((result) => {
         result = result.toJSON();
-        return result;
+        return result._id;
     });
 };
