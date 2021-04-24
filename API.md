@@ -335,21 +335,12 @@ There will be different types of data that need to be exposed by the api. Additi
   - A response code that is not 2xx represents the JWT is invalid, or if the emoji does not exist, or if the emoji does not belong to the user.
   - If a new pack is specified, the pack MUST be owned by the user
 
-### Delete Emoji (`DELETE` - `/emoji/delete`)
+### Delete Emoji (`DELETE` - `/emoji/delete/{emojiId}`)
 
 - Request Header:
   
   ```header
   Authorization: JWT returned from /login
-  ```
-
-- Payload:
-  Send a JSON payload to the endpoint with the following:
-
-  ```json
-  {
-      "id": "the id of the emoji"
-  }
   ```
 
 - Response:
