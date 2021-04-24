@@ -42,20 +42,23 @@ module.exports.removeById = (req, res) => {
 };
 
 module.exports.cloneById = (req, res) => {
-    packModel.findById(req.body.srcId).exec(function(err, doc) {
-        if(err) {
-            return res.status(404).send({ errors: err });
+    function cleanId(obj) {
+        if(Array.isArray(obj)) {
+            obj.forEach(cleanId);
+        } else {
+            delete obj['_id'];
+            for(const key in obj) {
+                if(typeof obj[key] == 'object') {
+                    cleanId(obj[key]);
+                }
+            }
         }
+    }
 
-        const newdoc = new packModel(doc);
-        newdoc._id = mongoose.Types.ObjectId();
-        if(req.body.name) {
-            newdoc.name = req.body.name;
-        }
-
-        newdoc.isNew = true;
-        newdoc.save();
-    }).then((result) => {
+    const old_doc = await packModel.findOne({ _id: req.body.srcId });
+    const new_doc_object = cleanId(old_doc.toObject());
+    const new_doc = new packModel(new_doc_object);
+    new_doc.save().then((result) => {
         res.status(204).send({ id: result._id });
     });
 };
