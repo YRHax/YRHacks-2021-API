@@ -26,4 +26,9 @@ module.exports.routesConfig = function(app) {
         PermissionMiddleware.minimumPermissionLevelRequired(NORMAL),
         PackController.removeById,
     ]);
+    app.post('/pack/clone', [
+        PermissionMiddleware.validJWTNeeded,
+        PermissionMiddleware.minimumPermissionLevelRequired(NORMAL),
+        PackController.cloneById,
+    ]);
 };
