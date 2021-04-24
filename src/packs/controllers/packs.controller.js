@@ -49,6 +49,10 @@ module.exports.cloneById = (req, res) => {
 
         const newdoc = new packModel(doc);
         newdoc._id = mongoose.Types.ObjectId();
+        if(req.body.name) {
+            newdoc.name = req.body.name;
+        }
+
         newdoc.isNew = true;
         newdoc.save();
     });
