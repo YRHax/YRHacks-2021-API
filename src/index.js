@@ -7,6 +7,7 @@ const cors = require('cors');
 const AuthorizationRouter = require('./authorization/routes.config');
 const UsersRouter = require('./users/routes.config');
 const PacksRouter = require('./packs/routes.config');
+const EmojiRouter = require('./emojis/routes.config');
 
 const app = express();
 app.use(cors());
@@ -28,6 +29,7 @@ app.use(function(req, res, next) {
 });
 
 PacksRouter.routesConfig(app);
+EmojiRouter.routesConfig(app);
 AuthorizationRouter.routesConfig(app);
 UsersRouter.routesConfig(app);
 
