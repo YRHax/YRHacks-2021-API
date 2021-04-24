@@ -41,7 +41,7 @@ module.exports.removeById = (req, res) => {
     });
 };
 
-module.exports.cloneById = (req, res) => {
+module.exports.cloneById = async (req, res) => {
     function cleanId(obj) {
         if(Array.isArray(obj)) {
             obj.forEach(cleanId);
