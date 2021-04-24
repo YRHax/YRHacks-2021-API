@@ -1,3 +1,4 @@
+const { mongoose } = require('../../common/services/mongoose.service');
 const packModel = require('../../users/models/packs.model');
 
 module.exports.create = (req, res) => {
@@ -37,5 +38,18 @@ module.exports.removeById = (req, res) => {
         res.status(204).send({
             // send nothing
         });
+    });
+};
+
+module.exports.cloneById = (req, res) => {
+    packModel.findById(req.body.srcId).exec(function(err, doc) {
+        if(err) {
+            return res.status(404).send({ errors: err });
+        }
+
+        const newdoc = new packModel(doc);
+        newdoc._id = mongoose.Types.ObjectId();
+        newdoc.isNew = true;
+        newdoc.save();
     });
 };
