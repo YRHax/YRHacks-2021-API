@@ -115,12 +115,11 @@ module.exports.removeById = (packID) => {
 
 module.exports.cloneById = async (packID, newPackOwner) => {
     const old_doc = Pack.findOne({ _id: packID });
-    const new_doc_with_ids = (await old_doc).toJSON();
+    const new_doc_with_ids = (await old_doc).toObject();
     new_doc_with_ids.owner = newPackOwner;
     const new_doc_without_ids = cleanId(new_doc_with_ids);
     const new_doc = new Pack(new_doc_without_ids);
-    new_doc.isNew = true;
     return new_doc.save().then((result) => {
-        return result._id;
+        return result;
     });
-};
+}; // come back to this
