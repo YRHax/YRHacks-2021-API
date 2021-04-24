@@ -114,12 +114,12 @@ module.exports.removeById = (packID) => {
 };
 
 module.exports.cloneById = async (packID, newPackOwner) => {
-    const old_doc = Pack.findOne({ _id: packID });
-    const new_doc_with_ids = (await old_doc).toObject();
-    new_doc_with_ids.owner = newPackOwner;
-    const new_doc_without_ids = cleanId(new_doc_with_ids);
-    const new_doc = new Pack(new_doc_without_ids);
-    return new_doc.save().then((result) => {
-        return result;
+    const old_doc = Pack.findOne({ _id: packID }); // find the original pack
+    const new_doc_with_ids = (await old_doc).toObject(); // converting it to a plain js object
+    new_doc_with_ids.owner = newPackOwner; // overriding the owner id
+    const new_doc_without_ids = cleanId(new_doc_with_ids); // recursively the _id field
+    const new_doc = new Pack(new_doc_without_ids); // creating a new document, and mongo automatically new _id fields
+    return new_doc.save().then((result) => { // saving the new document with new _id fields
+        return result; // this doesn't show up for some reason
     });
-}; // come back to this
+};
