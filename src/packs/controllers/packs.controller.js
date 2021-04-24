@@ -55,5 +55,7 @@ module.exports.cloneById = (req, res) => {
 
         newdoc.isNew = true;
         newdoc.save();
+    }).then((result) => {
+        res.status(204).send({ id: result._id });
     });
 };
