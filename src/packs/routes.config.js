@@ -15,7 +15,7 @@ module.exports.routesConfig = function(app) {
         ValidationMiddleware.validJWTNeeded,
         PermissionMiddleware.minimumPermissionLevelRequired(NORMAL),
         PermissionMiddleware.onlySameUserOrAdminCanDoThisAction,
-        PackController.listById,
+        PackController.getById,
     ]);
     app.patch('/pack/edit', [
         ValidationMiddleware.validJWTNeeded,
