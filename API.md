@@ -48,7 +48,6 @@ There will be different types of data that need to be exposed by the api. Additi
 ### Account Object (Minimum Storage Requirement)
 
 - Account Username
-- Account Email
 - Account Id
 - Account Packs (List of pack ids)
 
