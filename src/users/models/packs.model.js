@@ -4,44 +4,35 @@ const Schema = mongoose.Schema;
 const packSchema = new Schema({
     name: {
         type: String,
-        required: true,
     },
     owner: {
         type: String,
-        required: true,
     },
-    views: {
+    packCopyCount: {
         type: Number,
         default: 0,
-        required: true,
     },
     emojis: [{
         emojiId: {
             type: String,
-            required: true,
         },
         emojiName: {
             type: String,
-            required: true,
         },
         pack: {
             type: String,
-            required: true,
         },
         owner: {
             type: String,
-            required: true,
         },
         copyCount: {
             type: Number,
             default: 0,
-            required: true,
         },
     }],
     visibility: {
         type: Boolean,
         default: false,
-        required: true,
     },
 });
 
@@ -58,13 +49,15 @@ packSchema.findById = function(cb) {
 };
 
 function cleanId(obj) {
-    if(Array.isArray(obj)) {
-        obj.forEach(cleanId);
-    } else {
-        delete obj['_id'];
-        for(const key in obj) {
-            if(typeof obj[key] == 'object') {
+    if(obj != null && typeof (obj) != 'string' && typeof (obj) != 'number' && typeof (obj) != 'boolean') {
+        if(typeof (obj.length) == 'undefined') {
+            delete obj._id;
+            for(const key in obj) {
                 cleanId(obj[key]);
+            }
+        } else {
+            for(let i = 0; i < obj.length; i++) {
+                cleanId(obj[i]);
             }
         }
     }
@@ -120,13 +113,14 @@ module.exports.removeById = (packID) => {
     });
 };
 
-module.exports.cloneById = async (packID) => {
-    const old_doc = await Pack.findOne({ _id: packID });
-    const new_doc_object = cleanId(old_doc.toObject());
-    const new_doc = new Pack(new_doc_object);
+module.exports.cloneById = async (packID, newPackOwner) => {
+    const old_doc = Pack.findOne({ _id: packID });
+    const new_doc_with_ids = JSON.parse(JSON.stringify(old_doc));
+    const new_doc_without_ids = cleanId(new_doc_with_ids);
+    new_doc_without_ids.owner = newPackOwner;
+    const new_doc = new Pack(new_doc_without_ids);
     new_doc.isNew = true;
     return new_doc.save().then((result) => {
-        const results = result.toJSON();
-        return results;
+        return result._id;
     });
 };
