@@ -7,7 +7,7 @@ const ADMIN = config.permissionLevels.ADMIN;
 const NORMAL = config.permissionLevels.NORMAL_USER;
 
 module.exports.routesConfig = function(app) {
-    app.post('/users', [
+    app.post('/register', [
         UsersController.insert,
     ]);
     app.get('/users', [
