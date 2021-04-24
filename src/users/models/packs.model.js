@@ -94,10 +94,9 @@ module.exports.cloneById = async (packID) => {
     const old_doc = await Pack.findOne({ _id: packID });
     const new_doc_object = cleanId(old_doc.toObject());
     const new_doc = new Pack(new_doc_object);
-    console.log(new_doc_object);
     new_doc.isNew = true;
     return new_doc.save().then((result) => {
-        result = result.toJSON();
-        return result._id;
+        const results = result.toJSON();
+        return results;
     });
 };
