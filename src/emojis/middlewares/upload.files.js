@@ -18,6 +18,7 @@ const storage = multer.diskStorage({
                 pack: req.params.packId,
             }],
         });
+        await model.save();
 
         cb(null, name);
     },
