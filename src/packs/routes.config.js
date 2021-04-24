@@ -14,7 +14,7 @@ module.exports.routesConfig = function(app) {
     app.get('/pack/:packId', [
         ValidationMiddleware.validJWTNeeded,
         PermissionMiddleware.minimumPermissionLevelRequired(NORMAL),
-        PermissionMiddleware.onlySameUserOrAdminCanDoThisAction,
+        // PermissionMiddleware.onlySameUserOrAdminCanDoThisAction,
         PackController.getById,
     ]);
     app.patch('/pack/edit', [
