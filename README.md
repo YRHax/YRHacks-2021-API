@@ -1,4 +1,4 @@
-# YRHacks 2021
+# YRHacks 2021 - API Repo
 **Team: Adam, Michael, Tim**
 
 ## Table of Contents
