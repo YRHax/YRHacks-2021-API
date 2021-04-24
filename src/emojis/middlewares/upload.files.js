@@ -28,7 +28,7 @@ const uploadFile = multer({
     limits: {
         fileSize: maxSize,
     },
-}).array('multi-files', 50);
+}).array('pack', 50);
 
 const uploadFileMiddleware = util.promisify(uploadFile);
 module.exports = uploadFileMiddleware;
