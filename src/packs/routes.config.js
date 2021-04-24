@@ -19,7 +19,6 @@ module.exports.routesConfig = function(app) {
     app.patch('/pack/edit', [
         ValidationMiddleware.validJWTNeeded,
         PermissionMiddleware.minimumPermissionLevelRequired(NORMAL),
-        PermissionMiddleware.onlySameUserOrAdminCanDoThisAction,
         PackController.patchById,
     ]);
     app.delete('/pack/delete/:packId', [
