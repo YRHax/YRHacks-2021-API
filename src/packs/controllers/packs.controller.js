@@ -23,7 +23,7 @@ module.exports.patchById = (req, res) => {
         req.body.visibility = req.params.newVisibility;
     }
 
-    packModel.patchPack(req.body.packId, req.body).then(() => {
+    packModel.patchPack(req.params.packId, req.body).then(() => {
         res.status(204).send({
             // send nothing
         });
