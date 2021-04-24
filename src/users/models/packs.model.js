@@ -59,6 +59,7 @@ function cleanId(obj) {
 }
 
 const Pack = mongoose.model('Packs', packSchema);
+module.exports.packModel = Pack;
 
 module.exports.findByName = (packname) => {
     return Pack.find({ name: packname });

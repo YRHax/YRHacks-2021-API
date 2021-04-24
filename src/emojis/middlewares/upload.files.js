@@ -11,8 +11,7 @@ const storage = multer.diskStorage({
         const name = `${Date.now()}-${file.originalname}`;
         console.log(file.originalname);
 
-        const model = await packModel.findById(req.params.packId);
-        model.updateOne({
+        const model = await packModel.packModel.findByIdAndUpdate(req.params.packId, {
             emojis: [{
                 emojiName: name,
                 pack: req.params.packId,
