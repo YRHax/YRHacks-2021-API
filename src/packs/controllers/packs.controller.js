@@ -5,7 +5,6 @@ module.exports.create = (req, res) => {
         return res.status(404).send({ errors: 'Missing name and/or owner fields' });
     }
 
-    console.log(req.body);
     packModel.createPack(req.body).then((result) => {
         res.status(201).send({ id: result._id });
     });
@@ -18,15 +17,15 @@ module.exports.getById = (req, res) => {
 };
 
 module.exports.patchById = (req, res) => {
-    if(req.params.newName) {
+    if(req.body.newName) {
         req.body.name = req.body.newName;
     }
 
-    if(req.params.newVisibility) {
+    if(req.body.newVisibility) {
         req.body.visibility = req.body.newVisibility;
     }
 
-    packModel.patchPack(req.params.packId, req.body).then(() => {
+    packModel.patchPack(req.body.packId, req.body).then(() => {
         res.status(204).send({
             // send nothing
         });
