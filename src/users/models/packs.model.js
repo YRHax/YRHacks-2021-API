@@ -12,9 +12,9 @@ const packSchema = new Schema({
     },
 });
 
-packSchema.virtual('id').get(function() {
+/* packSchema.virtual('id').get(function() {
     return this._id.toHexString();
-});
+}); */
 
 packSchema.set('toJSON', {
     virtuals: true,
