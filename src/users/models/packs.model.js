@@ -46,7 +46,7 @@ module.exports.findByName = (packname) => {
     return Pack.find({ name: packname });
 };
 
-module.exports.findById = async (packID) => {
+module.exports.findById = (packID) => {
     return Pack.findById(packID).then((result) => {
         result = result.toJSON();
         delete result._id;
@@ -95,7 +95,7 @@ module.exports.cloneById = async (packID) => {
     const new_doc_object = cleanId(old_doc.toObject());
     const new_doc = new Pack(new_doc_object);
     new_doc.isNew = true;
-    await new_doc.save().then((result) => {
+    new_doc.save().then((result) => {
         result = result.toJSON();
         return result._id;
     });
