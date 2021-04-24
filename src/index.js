@@ -1,6 +1,7 @@
 const config = require('./common/config/env.config.js');
 
 const express = require('express');
+const fileUpload = require('express-fileupload');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
@@ -12,6 +13,7 @@ const EmojiRouter = require('./emojis/routes.config');
 const app = express();
 app.use(cors());
 app.use(bodyParser.json());
+app.use(fileUpload());
 app.use(express.urlencoded({ extended: true }));
 
 app.use(function(req, res, next) {
