@@ -5,6 +5,7 @@ module.exports.create = (req, res) => {
         return res.status(404).send({ errors: 'Missing name and/or owner fields' });
     }
 
+    console.log(req.body);
     packModel.createPack(req.body).then((result) => {
         res.status(201).send({ id: result._id });
     });
