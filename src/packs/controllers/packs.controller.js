@@ -13,3 +13,19 @@ module.exports.getById = (req, res) => {
         res.status(200).send(result);
     });
 };
+
+module.exports.patchById = (req, res) => {
+    if(req.params.newName) {
+        req.body.name = req.params.newName;
+    }
+
+    if(req.params.newVisibility) {
+        req.body.visibility = req.params.newVisibility;
+    }
+
+    packModel.patchPack(req.body.packId, req.body).then(() => {
+        res.status(204).send({
+            // send nothing
+        });
+    });
+};

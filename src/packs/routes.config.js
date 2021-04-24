@@ -14,14 +14,13 @@ module.exports.routesConfig = function(app) {
     app.get('/pack/:packId', [
         ValidationMiddleware.validJWTNeeded,
         PermissionMiddleware.minimumPermissionLevelRequired(NORMAL),
-        // PermissionMiddleware.onlySameUserOrAdminCanDoThisAction,
         PackController.getById,
     ]);
     app.patch('/pack/edit', [
         ValidationMiddleware.validJWTNeeded,
         PermissionMiddleware.minimumPermissionLevelRequired(NORMAL),
         PermissionMiddleware.onlySameUserOrAdminCanDoThisAction,
-        // something like PackController.editById,
+        PackController.patchById,
     ]);
     app.delete('/pack/delete/:packId', [
         ValidationMiddleware.validJWTNeeded,
