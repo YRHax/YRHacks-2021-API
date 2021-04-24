@@ -4,7 +4,6 @@ const Schema = mongoose.Schema;
 const packSchema = new Schema({
     name: String,
     owner: String,
-    ID: String,
     views: {
         type: Number,
         default: 0,
