@@ -93,12 +93,11 @@ module.exports.removeById = (packID) => {
 module.exports.cloneById = async (packID) => {
     const old_doc = await Pack.findOne({ _id: packID });
     const new_doc_object = cleanId(old_doc.toObject());
-    console.log(new_doc_object);
     const new_doc = new Pack(new_doc_object);
+    console.log(new_doc_object);
     new_doc.isNew = true;
-    new_doc.save().then((result) => {
+    return new_doc.save().then((result) => {
         result = result.toJSON();
-        console.log(result);
         return result._id;
     });
 };
