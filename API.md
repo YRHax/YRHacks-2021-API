@@ -162,13 +162,15 @@ There will be different types of data that need to be exposed by the api. Additi
 
   ```json
   {
-      "name": "Display name of the pack"
+      "name": "Display name of the pack",
+      "userid": "id of the user"
   }
   ```
 
 - Response:
   - The api will respond with a JSON object with the pack's id.
   - A response code that is not 2xx represents the JWT is invalid.
+  - The server will also respond with a code that is not 2xx if the JWT is not of the user
   - The server will also respond with a code that is not 2xx if the created pack will exceed `MAX_PACK_COUNT`
 
   ```json
