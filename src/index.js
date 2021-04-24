@@ -1,14 +1,17 @@
 const config = require('./common/config/env.config.js');
 
 const express = require('express');
-const app = express();
 const bodyParser = require('body-parser');
 const cors = require('cors');
 
 const AuthorizationRouter = require('./authorization/routes.config');
 const UsersRouter = require('./users/routes.config');
+const PacksRouter = require('./packs/routes.config');
 
+const app = express();
 app.use(cors());
+app.use(bodyParser.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.use(function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
@@ -24,7 +27,7 @@ app.use(function(req, res, next) {
     }
 });
 
-app.use(bodyParser.json());
+PacksRouter.routesConfig(app);
 AuthorizationRouter.routesConfig(app);
 UsersRouter.routesConfig(app);
 

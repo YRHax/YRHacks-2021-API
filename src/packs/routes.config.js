@@ -1,36 +1,32 @@
-const UsersController = require('./controllers/users.controller');
+const PackController = require('../packs/controllers/packs.controller');
 const PermissionMiddleware = require('../common/middlewares/auth.permission.middleware');
 const ValidationMiddleware = require('../common/middlewares/auth.validation.middleware');
 const config = require('../common/config/env.config');
 
-const ADMIN = config.permissionLevels.ADMIN;
 const NORMAL = config.permissionLevels.NORMAL_USER;
 
 module.exports.routesConfig = function(app) {
-    app.post('/users', [
-        UsersController.insert,
-    ]);
-    app.get('/users', [
+    app.post('/pack/create', [
         ValidationMiddleware.validJWTNeeded,
-        PermissionMiddleware.minimumPermissionLevelRequired(ADMIN),
-        UsersController.list,
+        PermissionMiddleware.minimumPermissionLevelRequired(NORMAL),
+        PackController.create,
     ]);
-    app.get('/users/:userId', [
+    app.get('/pack/:packId', [
         ValidationMiddleware.validJWTNeeded,
         PermissionMiddleware.minimumPermissionLevelRequired(NORMAL),
         PermissionMiddleware.onlySameUserOrAdminCanDoThisAction,
-        UsersController.getById,
+        // something like PackController.listById,
     ]);
-    app.patch('/users/:userId', [
+    app.patch('/pack/edit', [
         ValidationMiddleware.validJWTNeeded,
         PermissionMiddleware.minimumPermissionLevelRequired(NORMAL),
         PermissionMiddleware.onlySameUserOrAdminCanDoThisAction,
-        UsersController.patchById,
+        // something like PackController.editById,
     ]);
-    app.delete('/users/:userId', [
+    app.delete('/pack/delete/:packId', [
         ValidationMiddleware.validJWTNeeded,
         PermissionMiddleware.minimumPermissionLevelRequired(NORMAL),
         PermissionMiddleware.onlySameUserOrAdminCanDoThisAction,
-        UsersController.removeById,
+        // something like PackController.removeById,
     ]);
 };

@@ -3,13 +3,13 @@ const AuthorizationController = require('./controllers/authorization.controller'
 const AuthValidationMiddleware = require('../common/middlewares/auth.validation.middleware');
 
 module.exports.routesConfig = function(app) {
-    app.post('/auth', [
+    app.post('/login', [
         VerifyUserMiddleware.hasAuthValidFields,
         VerifyUserMiddleware.isPasswordAndUserMatch,
         AuthorizationController.login,
     ]);
 
-    app.post('/auth/refresh', [
+    app.post('/login/refresh', [
         AuthValidationMiddleware.validJWTNeeded,
         AuthValidationMiddleware.verifyRefreshBodyField,
         AuthValidationMiddleware.validRefreshNeeded,
