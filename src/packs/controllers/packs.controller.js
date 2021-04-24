@@ -19,11 +19,11 @@ module.exports.getById = (req, res) => {
 
 module.exports.patchById = (req, res) => {
     if(req.params.newName) {
-        req.body.name = req.params.newName;
+        req.body.name = req.body.newName;
     }
 
     if(req.params.newVisibility) {
-        req.body.visibility = req.params.newVisibility;
+        req.body.visibility = req.body.newVisibility;
     }
 
     packModel.patchPack(req.params.packId, req.body).then(() => {
