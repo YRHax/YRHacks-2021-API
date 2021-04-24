@@ -1,4 +1,3 @@
-const { mongoose } = require('../../common/services/mongoose.service');
 const packModel = require('../../users/models/packs.model');
 
 module.exports.create = (req, res) => {
@@ -42,23 +41,7 @@ module.exports.removeById = (req, res) => {
 };
 
 module.exports.cloneById = async (req, res) => {
-    function cleanId(obj) {
-        if(Array.isArray(obj)) {
-            obj.forEach(cleanId);
-        } else {
-            delete obj['_id'];
-            for(const key in obj) {
-                if(typeof obj[key] == 'object') {
-                    cleanId(obj[key]);
-                }
-            }
-        }
-    }
-
-    const old_doc = await packModel.findOne({ _id: req.body.srcId });
-    const new_doc_object = cleanId(old_doc.toObject());
-    const new_doc = new packModel(new_doc_object);
-    new_doc.save().then((result) => {
+    packModel.cloneById(req.body.srcId).then((result) => {
         res.status(204).send({ id: result._id });
     });
 };

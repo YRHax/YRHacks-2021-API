@@ -27,6 +27,19 @@ packSchema.findById = function(cb) {
     return this.model('Packs').find({ id: this.id }, cb);
 };
 
+function cleanId(obj) {
+    if(Array.isArray(obj)) {
+        obj.forEach(cleanId);
+    } else {
+        delete obj['_id'];
+        for(const key in obj) {
+            if(typeof obj[key] == 'object') {
+                cleanId(obj[key]);
+            }
+        }
+    }
+}
+
 const Pack = mongoose.model('Packs', packSchema);
 
 module.exports.findByName = (packname) => {
@@ -74,5 +87,15 @@ module.exports.removeById = (packID) => {
                 resolve(err);
             }
         });
+    });
+};
+
+module.exports.cloneById = async (packID) => {
+    const old_doc = await Pack.findOne({ _id: packID });
+    const new_doc_object = cleanId(old_doc.toObject());
+    const new_doc = new Pack(new_doc_object);
+    new_doc.save().then((result) => {
+        result = result.toJSON();
+        return result;
     });
 };
