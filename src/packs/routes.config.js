@@ -27,7 +27,7 @@ module.exports.routesConfig = async function(app) {
         PackController.removeById,
     ]);
     app.post('/pack/clone', [
-        PermissionMiddleware.validJWTNeeded,
+        ValidationMiddleware.validJWTNeeded,
         PermissionMiddleware.minimumPermissionLevelRequired(NORMAL),
         PackController.cloneById,
     ]);
