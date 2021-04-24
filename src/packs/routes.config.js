@@ -24,7 +24,6 @@ module.exports.routesConfig = function(app) {
     app.delete('/pack/delete/:packId', [
         ValidationMiddleware.validJWTNeeded,
         PermissionMiddleware.minimumPermissionLevelRequired(NORMAL),
-        PermissionMiddleware.onlySameUserOrAdminCanDoThisAction,
-        // something like PackController.removeById,
+        PackController.removeById,
     ]);
 };

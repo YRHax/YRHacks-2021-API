@@ -31,3 +31,11 @@ module.exports.patchById = (req, res) => {
         });
     });
 };
+
+module.exports.removeById = (req, res) => {
+    packModel.removeById(req.params.packId).then(() => {
+        res.status(204).send({
+            // send nothing
+        });
+    });
+};
