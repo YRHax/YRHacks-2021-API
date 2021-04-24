@@ -13,16 +13,10 @@ const packSchema = new Schema({
         default: 0,
     },
     emojis: [{
-        emojiId: {
-            type: String,
-        },
         emojiName: {
             type: String,
         },
         pack: {
-            type: String,
-        },
-        owner: {
             type: String,
         },
         copyCount: {

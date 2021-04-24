@@ -1,6 +1,5 @@
 const fs = require('fs');
 const uploadFile = require('../middlewares/upload.files');
-const baseUrl = '34.74.129.156/pack/upload/';
 
 module.exports.upload = async (req, res) => {
     try {
@@ -15,13 +14,13 @@ module.exports.upload = async (req, res) => {
         });
     } catch(err) {
         if(err.code == 'LIMIT_FILE_SIZE') {
-            return res.status(500).send({
-                errors: 'File size cannot be larger than 2MB!',
+            return res.status(404).send({
+                errors: 'File size cannot be larger than 256KB!',
             });
         }
 
         if(err.code == 'LIMIT_UNEXPECTED_FILE') {
-            return res.status(500).send({
+            return res.status(404).send({
                 errors: 'No more than 50 files can be uploaded at once!',
             });
         }
@@ -47,7 +46,6 @@ module.exports.getListOfFiles = (_req, res) => {
         files.forEach((file) => {
             fileInfo.push({
                 name: file,
-                url: baseUrl + file,
             });
         });
 

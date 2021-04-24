@@ -42,6 +42,6 @@ module.exports.removeById = (req, res) => {
 
 module.exports.cloneById = async (req, res) => {
     packModel.cloneById(req.body.srcId, req.body.newOwner).then((result) => {
-        res.status(204).send({ id: result._id });
+        res.status(204).send({ id: result._id }); // that doesn't send for some reason
     });
 };

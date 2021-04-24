@@ -1,14 +1,25 @@
 const util = require('util');
 const multer = require('multer');
+const packModel = require('../../users/models/packs.model');
 const maxSize = 256 * 1024;
 
 const storage = multer.diskStorage({
     destination: (_req, _file, cb) => {
         cb(null, __dirname + '/uploads/');
     },
-    filename: (_req, file, cb) => {
+    filename: async (req, file, cb) => {
+        const name = `${Date.now()}-${file.originalname}`;
         console.log(file.originalname);
-        cb(null, file.originalname);
+
+        const model = await packModel.findById(req.params.packId);
+        model.updateOne({
+            emojis: [{
+                emojiName: name,
+                pack: req.params.packId,
+            }],
+        });
+
+        cb(null, name);
     },
 });
 
