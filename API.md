@@ -78,7 +78,6 @@ There will be different types of data that need to be exposed by the api. Additi
   ```json
   {
       "username": "username",
-      "email": "email@email.com",
       "password": "password"
   }
   ```
@@ -100,14 +99,14 @@ There will be different types of data that need to be exposed by the api. Additi
 
   ```json
   {
-      "email": "email@email.com",
+      "username": "username",
       "password": "password"
   }
   ```
 
 - Response:
 
-  - A response code that is not 2xx represents a failed password or non-existent email.
+  - A response code that is not 2xx represents a failed password or non-existent username.
   - If valid, the api will respond with the following JSON object.
 
   The token will expire in 100 hours
