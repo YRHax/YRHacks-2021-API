@@ -5,7 +5,7 @@ const config = require('../common/config/env.config');
 
 const NORMAL = config.permissionLevels.NORMAL_USER;
 
-module.exports.routesConfig = function(app) {
+module.exports.routesConfig = async function(app) {
     app.post('/pack/create', [
         ValidationMiddleware.validJWTNeeded,
         PermissionMiddleware.minimumPermissionLevelRequired(NORMAL),

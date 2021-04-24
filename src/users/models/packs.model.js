@@ -90,12 +90,19 @@ module.exports.removeById = (packID) => {
     });
 };
 
-module.exports.cloneById = async (packID) => {
-    const old_doc = await Pack.findOne({ _id: packID });
-    const new_doc_object = cleanId(old_doc.toObject());
-    const new_doc = new Pack(new_doc_object);
-    new_doc.save().then((result) => {
-        result = result.toJSON();
-        return result;
+module.exports.cloneById = (packID) => {
+    return new Promise((resolve, reject) => {
+        const old_doc = Pack.findOne({ _id: packID }, (err) => {
+            if(err) {
+                reject(err);
+            }
+        });
+        const new_doc_object = cleanId(old_doc.toObject());
+        const new_doc = new Pack(new_doc_object);
+        new_doc.isNew = true;
+        new_doc.save().then((result) => {
+            result = result.toJSON();
+            resolve(result);
+        });
     });
 };
