@@ -398,7 +398,8 @@ There will be different types of data that need to be exposed by the api. Additi
       "id": "unique emoji specified by the api",
       "name": "display name of the emoji",
       "count": "number of times the emoji was copied",
-      "mimeType": "The type of the image, either image/jpeg or image/png"
+      "packid": "the id of the pack",
+      "ownerid": "the id of the owner"
   }
   ```
 
