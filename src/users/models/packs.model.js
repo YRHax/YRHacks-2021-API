@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 const packSchema = new Schema({
     name: String,
     owner: String,
-    id: String,
+    ID: String,
     emojis: [],
     visibility: {
         type: Boolean,
@@ -12,9 +12,9 @@ const packSchema = new Schema({
     },
 });
 
-/* packSchema.virtual('id').get(function() {
+packSchema.virtual('id').get(function() {
     return this._id.toHexString();
-}); */
+});
 
 packSchema.set('toJSON', {
     virtuals: true,
